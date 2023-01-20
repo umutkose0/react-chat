@@ -1,3 +1,15 @@
-.App {
-  text-align: center;
+body{
+    background-size:100vw 100vh;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(to top,#ee9ca7,#ff7484);
+}
+.App{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+*:focus{
+    outline:none!important;
+    outline-offset:0px!important;
+    box-shadow:none!important;
 }
