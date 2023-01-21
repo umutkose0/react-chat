@@ -25,11 +25,25 @@ body{
   *::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+  .messages{
+    height:calc(85vh-120px);
+  }
+@media(min-width:769px){
+    .sidebar{
+        visibility: visible!important;
+    }
+}
 @media(max-width:768px){
-   .container{ 
+   .container{
     width: 100vw!important;
+    max-height: 100vh!important;
     height: 100vh!important;
     margin:0!important;
+    box-sizing: border-box;
+    overflow:hidden!important;
+   }
+   .messages{
+    height: calc(100vh-120px)!important;
    }
     .sidebar{
         position:absolute;
