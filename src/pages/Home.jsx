@@ -5,7 +5,7 @@ import React from 'react'
 function Home() {
   return (
     <>
-      <div className="flex bg-white w-4/5 h-[85vh]   mt-12   ">
+      <div className="container flex bg-white w-4/5 h-[85vh]   mt-12   ">
         <Sidebar/>
         <Chat/>
       </div>

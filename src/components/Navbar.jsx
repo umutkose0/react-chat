@@ -1,8 +1,25 @@
 import React from 'react'
 import FeatherIcon from "feather-icons-react"
+const showSidebar=(e)=>{
+  //e.target.style.opacity="0";
+  e.target.classList.remove("show-navbar");
+  //e.target.classList.add("invisible");
+  let sidebar=document.querySelector(".sidebar");
+  sidebar.style.visibility="visible";
+  document.querySelector(".navbar-button-2").classList.add("close-navbar");
+}
+const hideSidebar=(e)=>{
+  e.target.style.visibility="hidden!important";
+  e.target.classList.remove("close-navbar");
+  let sidebar=document.querySelector(".sidebar");
+  sidebar.style.visibility="hidden";
+  document.querySelector(".navbar-button").classList.add("show-navbar");
+}
 const Navbar = () => {
   return (
     <div className="flex items-center bg-[#cdcfc666] p-1">
+      <div onClick={showSidebar} className="navbar-button show-navbar invisible absolute rotate-90 text-xl font-bold">|||</div>
+      <button onClick={hideSidebar}className="navbar-button-2  invisible">X</button>
       <div className="flex justify-start flex-1 font-">
       <img className="w-14 border-[1px] border-[#00000047] rounded-full" src="./default.png" />
       </div>

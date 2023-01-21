@@ -26,6 +26,7 @@ const Messages = () => {
         <Message/>
         <Message/>
         <Message/>
+        <Message reciever={true}/>
     </div>
   )
 }

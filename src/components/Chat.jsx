@@ -3,7 +3,7 @@ import Input from "./Input"
 import Messages from './Messages'
 const Chat = () => {
   return (
-    <div className="relative bg-red-100 flex-[5] text-black ">
+    <div className="chat relative bg-red-100 flex-[5] text-black ">
        <div className="flex items-center bg-[#cdcfc666] p-1">
       <div className="flex items-center justify-start flex-1 ">
       <img className="mx-3 w-14 border-[1px] border-[#00000047] rounded-full" src="./default.png" />
