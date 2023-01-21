@@ -2,9 +2,9 @@ import React from 'react'
 import Message from "./Message"
 const Messages = () => {
   return (
-    <div className="p-3 h-[79%] overflow-y-scroll">
-        <Message/>
-        <Message/>
+    <div className="py-3 pl-5 pr-10 h-[calc(85vh-120px)] overflow-y-scroll">
+        <Message reciever={true}/>
+        <Message reciever={false}/>
         <Message/>
         <Message/>
         <Message/>
