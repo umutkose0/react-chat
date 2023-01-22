@@ -38,12 +38,20 @@ body{
     width: 100vw!important;
     max-height: 100vh!important;
     height: 100vh!important;
+    height: calc(var(--vh,1vh)*100)!important;
     margin:0!important;
     box-sizing: border-box;
     overflow:hidden!important;
+    position: absolute;
+    bottom:0;
    }
+    
    .messages{
-    height: calc(100vh-120px)!important;
+    --msg:calc(var(--vh,1vh)*100);
+    height: calc(var(--msg) - 120px)!important;
+    
+    overflow:scroll!important;
+
    }
     .sidebar{
         position:absolute;
