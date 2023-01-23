@@ -1,18 +1,37 @@
 import React from 'react'
+import {createUser} from "./../firebase"
 import FeatherIcon from 'feather-icons-react';
 
 function Register() {
+ 
+  const handleSubmit=async(e)=>{
+    e.preventDefault();
+    let displayName=e.target[0].value
+    let email=e.target[1].value
+    let password=e.target[2].value
+    let photo=e.target[3].files[0]
+   
+    const r=await createUser(displayName,email,password,photo);
+    if(r)
+    {
+      console.log("user created")
+    }
+    else
+    {
+      console.log("en error occured")
+    }
+      
+  }
   return (
     <>
-      <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="mt-10 rounded-md bg-white flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
-            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              Sign up to your account
+            <h2 className="mt-3 text-center text-3xl font-bold tracking-tight text-gray-900">
+              Sign up
             </h2>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
-            <input type="hidden" name="remember" defaultValue="true" />
+          <form onSubmit={handleSubmit} className="mt-8 space-y-6" action="#" method="POST">
             <div className="-space-y-px rounded-md shadow-sm">
               
             <div>
