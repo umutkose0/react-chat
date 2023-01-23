@@ -1,6 +1,9 @@
 import Home from "./pages/Home"
 import Register from "./pages/Register"
+import Login from "./pages/Login"
 import { useEffect } from "react";
+import {BrowserRouter,Routes,Route} from "react-router-dom";
+
 import "./App.css"
 function App() {
   useEffect(()=>{
@@ -11,7 +14,15 @@ function App() {
   })
   return (
     <div className="App">
-      <Register/>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/">
+          <Route index element={<Home/>} />
+          <Route path="login" element={<Login/>} />
+          <Route path="register" element={<Register/>} />
+        </Route>
+      </Routes>
+      </BrowserRouter>
     </div>
   );
 }

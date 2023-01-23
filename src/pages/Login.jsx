@@ -1,9 +1,29 @@
-import React from 'react'
+import React,{useState} from 'react';
 import FeatherIcon from 'feather-icons-react';
+import {signIn} from "./../firebase";
+import {useNavigate} from 'react-router-dom';
 function Login() {
+  const navigate=useNavigate();
+  const [loading,setLoading]=useState(false);
+  const submitHandle=async(e)=>{
+    e.preventDefault();
+    setLoading(true);
+    const email=e.target[0].value
+    const password=e.target[1].value
+    const res=await signIn(email,password);
+   
+    if(res)
+    {
+      navigate("/");
+    }
+    else
+    {
+      setLoading(false);
+    }
+  }
   return (
     <>
-      <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="mt-3 rounded-md bg-white flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
             <img
@@ -14,8 +34,8 @@ function Login() {
               Sign in to your account
             </h2>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
-            <input type="hidden" name="remember" defaultValue="true" />
+          <form onSubmit={submitHandle} className="mt-8 space-y-6" action="#" method="POST">
+            
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
                 <label htmlFor="email-address" className="sr-only">
@@ -49,6 +69,7 @@ function Login() {
 
             <div className="flex items-center justify-between">
               <div className="flex items-center">
+                <input type="hidden" name="remember" defaultValue="true" />
                 <input
                   id="remember-me"
                   name="remember-me"
@@ -75,7 +96,7 @@ function Login() {
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <FeatherIcon color="#3fe33f" icon="lock"  size="18"/>
                 </span>
-                Sign in
+                {loading?"loading..":"Sign in"}
               </button>
             </div>
           </form>

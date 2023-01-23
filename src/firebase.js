@@ -78,14 +78,17 @@ export const uploadImage=async(file,displayName)=>{
     */
 }
 export const signIn=async(email,password)=>{
-    signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  });
+    try{
+      const credential=await signInWithEmailAndPassword(auth, email, password)
+      const user= credential.user;
+      console.log("logged in",user);
+      return true;
+    }
+    catch(e)
+    {
+      console.log(e.message);
+      return false;
+    }
+
+
 }

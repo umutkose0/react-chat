@@ -1,11 +1,14 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {createUser} from "./../firebase"
 import FeatherIcon from 'feather-icons-react';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
- 
+  const navigate=useNavigate();
+  const [loading,setLoading]=useState(false);
   const handleSubmit=async(e)=>{
     e.preventDefault();
+    setLoading(true);
     let displayName=e.target[0].value
     let email=e.target[1].value
     let password=e.target[2].value
@@ -15,10 +18,12 @@ function Register() {
     if(r)
     {
       console.log("user created")
+      navigate("/");
     }
     else
     {
       console.log("en error occured")
+      setLoading(false);
     }
       
   }
@@ -96,7 +101,7 @@ function Register() {
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
                   Log in
                 </a>
               </div>
@@ -104,13 +109,14 @@ function Register() {
 
             <div>
               <button
+                disabled={loading}
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <FeatherIcon color="#3fe33f" icon="lock"  size="18"/>
                 </span>
-                Sign up
+                {loading?"loading..":"Sign up"}
               </button>
             </div>
           </form>
