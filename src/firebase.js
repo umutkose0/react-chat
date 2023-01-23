@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile  } from "firebase/auth";
+import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile, signOut  } from "firebase/auth";
 import { getStorage, ref,uploadBytesResumable,getDownloadURL  } from "firebase/storage";
 import { getFirestore,doc, setDoc } from "firebase/firestore"; 
 const firebaseConfig = {
@@ -91,4 +91,16 @@ export const signIn=async(email,password)=>{
     }
 
 
+}
+export const logOut=async()=>{
+  try{
+    await signOut(auth)
+    console.log("logged out");
+    return true;
+  }
+  catch(e)
+  {
+    console.log(e.message)
+    return false;
+  }
 }

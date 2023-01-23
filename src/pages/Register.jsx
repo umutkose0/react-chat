@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import {createUser} from "./../firebase"
 import FeatherIcon from 'feather-icons-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 
 function Register() {
   const navigate=useNavigate();
@@ -101,8 +101,8 @@ function Register() {
               </div>
 
               <div className="text-sm">
-                <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-                  Log in
+                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                <Link to="/login">Log in</Link>
                 </a>
               </div>
             </div>
