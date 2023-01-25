@@ -86,7 +86,7 @@ function Register() {
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <div class="shrink-0">
-                    <img class="mr-4 h-16 w-16 object-cover rounded-full" src="./default.png"  alt="Current profile photo" />
+                    <img class="mr-4 h-16 w-16 object-cover rounded-full" src="./default.png"  alt="Current profile" />
                 </div>
                 <label class="block">
                   <span class="sr-only">Choose profile photo</span>
@@ -101,9 +101,7 @@ function Register() {
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
                 <Link to="/login">Log in</Link>
-                </a>
               </div>
             </div>
 

@@ -23,7 +23,7 @@ const logoutHandle=async()=>{
 }
 const Navbar = () => {
   const {currentUser}=useContext(AuthContext)
-  console.log(currentUser)
+  //console.log(currentUser)
   if(!currentUser?.photoURL)
       currentUser.photoURL="./default.png";
   return (

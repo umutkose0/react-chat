@@ -1,7 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile, signOut  } from "firebase/auth";
 import { getStorage, ref,uploadBytesResumable,getDownloadURL  } from "firebase/storage";
-import { getFirestore,doc, setDoc , collection, query, where,getDocs} from "firebase/firestore"; 
+import { getFirestore,doc, setDoc , collection, query, where,getDocs, onSnapshot} from "firebase/firestore"; 
+import { getDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_apiKey,
   authDomain: process.env.REACT_APP_authDomain,
@@ -50,34 +52,6 @@ export const uploadImage=async(file,displayName)=>{
     const url=await getDownloadURL(res.ref)
     console.log(url)
     return url? url:"";
-    /*
-    uploadTask.on('state_changed',
-    (snapshot)=>{
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        //console.log('Upload is ' + progress + '% done');
-    },
-    (error) => {
-        switch (error.code) {
-          case 'storage/unauthorized':
-            console.log("permission error");
-            break;
-          case 'storage/canceled':
-            console.log("user  canceled");
-            break;
-          case 'storage/unknown':
-            // Unknown error occurred, inspect error.serverResponse
-            console.log("server error");
-            default:
-                console.log("an error occured when uploading photo.");
-            break;
-        }
-      },
-      async()=>{
-        const downloadURL=await getDownloadURL(uploadTask.snapshot.ref)
-        console.log('File available at', downloadURL);
-         return downloadURL;
-      })
-    */
 }
 export const signIn=async(email,password)=>{
     try{
@@ -120,4 +94,39 @@ export const searchUser=async(search)=>{
     console.log(e.message)
   }
 
+}
+export const startChat=async(currentUser,result)=>{
+  try{
+    const combinedId=currentUser.uid>result.uid
+    ?currentUser.uid+result.uid
+    :result.uid+currentUser.uid
+    const res=await getDoc(doc(db,'chats',combinedId));
+    if(!res.exists()){
+      await setDoc(doc(db,"chats",combinedId),{messages:[]})
+      //start chat with found user
+      await updateDoc(doc(db,"userChats",currentUser.uid),{
+        [combinedId+".userInfo"]:{
+          uid:result.uid,
+          displayName:result.displayName,
+          photoURL:result.photoURL
+        },
+        [combinedId+".date"]:serverTimestamp()
+      })
+      //start chat with currentUser for found user
+      await updateDoc(doc(db,"userChats",result.uid),{
+        [combinedId+".userInfo"]:{
+          uid:currentUser.uid,
+          displayName:currentUser.displayName,
+          photoURL:currentUser.photoURL
+        },
+        [combinedId+".date"]:serverTimestamp()
+      })
+    }
+    return true;
+  }
+  catch(e)
+  {
+    console.log(e.message)
+    return false;
+  }
 }

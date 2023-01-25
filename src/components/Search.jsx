@@ -1,5 +1,5 @@
 import React,{useEffect, useRef,useState,useContext} from 'react'
-import { searchUser } from '../firebase';
+import { startChat, searchUser } from '../firebase';
 import {AuthContext} from "../context/AuthContext"
 const Search = () => {
   const {currentUser}=useContext(AuthContext);
@@ -19,7 +19,8 @@ const Search = () => {
   }
   const clickHandle=async ()=>{
     console.log(result);
-    
+    const res=await startChat(currentUser,result);
+    console.log(res)
   }
   useEffect(()=>{
     (async()=>{
