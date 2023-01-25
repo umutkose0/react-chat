@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile, signOut  } from "firebase/auth";
 import { getStorage, ref,uploadBytesResumable,getDownloadURL  } from "firebase/storage";
-import { getFirestore,doc, setDoc } from "firebase/firestore"; 
+import { getFirestore,doc, setDoc , collection, query, where,getDocs} from "firebase/firestore"; 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_apiKey,
   authDomain: process.env.REACT_APP_authDomain,
@@ -19,13 +19,15 @@ export const db=getFirestore(app);
 export const createUser=async(displayName,email,password,photo)=>{
  try{
     const r=await createUserWithEmailAndPassword(auth,email,password);
-    const photoUrl=await uploadImage(photo,email);
-    await updateProfile(r.user,{displayName,photoUrl})
+    const photoURL=await uploadImage(photo,email);
+    
+    await updateProfile(r.user,{displayName,photoURL})
+
     const dbData={
         uid:r.user.uid,
         displayName,
         email,
-        photoUrl
+        photoURL
     };
     console.log(dbData);
     await setDoc(doc(db,"users",r.user.uid),dbData)
@@ -103,4 +105,19 @@ export const logOut=async()=>{
     console.log(e.message)
     return false;
   }
+}
+export const searchUser=async(search)=>{
+  try{
+
+      const citiesRef = collection(db, "users");
+      const q = query(citiesRef, where("email", "==", search));
+      const querySnapshot =await getDocs(q);
+      return querySnapshot;
+  
+  }
+  catch(e)
+  {
+    console.log(e.message)
+  }
+
 }

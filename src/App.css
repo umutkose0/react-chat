@@ -31,6 +31,7 @@ body{
 @media(min-width:769px){
     .sidebar{
         visibility: visible!important;
+        
     }
 }
 @media(max-width:768px){
@@ -45,7 +46,6 @@ body{
     position: absolute;
     bottom:0;
    }
-    
    .messages{
     --msg:calc(var(--vh,1vh)*100);
     height: calc(var(--msg) - 120px)!important;
@@ -54,11 +54,11 @@ body{
 
    }
     .sidebar{
-        position:absolute;
+        position:absolute!important;
         z-index:10;
         background-color:white;
         visibility: hidden;
-        width:100vw;
+        width:100%;
         height: 100vh;
    }
    .show-navbar{
@@ -75,6 +75,10 @@ body{
     right:0;
     top:76px;
     margin-right:10px;
+   }
+   .chat-list{
+    background-color:white;
+    height: calc(100% - 133px)!important;
    }
   
 }
