@@ -1,9 +1,9 @@
 import React from 'react'
 
-function ChatItem({chatItem}) {
-  console.log(chatItem)
+function ChatItem({handleSelect,chatItem}) {
+  //console.log(chatItem)
   return (
-   <li className="hover:bg-[rgba(0,0,0,0.1)]">
+   <li onClick={()=>{handleSelect(chatItem)}} className="hover:bg-[rgba(0,0,0,0.1)]">
     <div className="p-1 border-b-[1px] border-[rgba(0,0,0,0.1)] flex items-center">
         <div>
         <img className="flex ml-1 my-1 mr-4 rounded-full w-12" src={chatItem.userInfo.photoURL}/>
