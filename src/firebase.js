@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile, signOut  } from "firebase/auth";
 import { getStorage, ref,uploadBytesResumable,getDownloadURL  } from "firebase/storage";
-import { getFirestore,doc, setDoc , collection, query, where,getDocs, onSnapshot} from "firebase/firestore"; 
+import { getFirestore,doc, setDoc , collection, query, where,getDocs, arrayUnion} from "firebase/firestore"; 
 import { getDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -128,5 +128,18 @@ export const startChat=async(currentUser,result)=>{
   {
     console.log(e.message)
     return false;
+  }
+}
+export const sendMessage=async(chatId,message)=>{
+  try
+  {
+    await updateDoc(doc(db,"chats",chatId),
+    {
+      "messages":arrayUnion(message)
+    }
+    )
+  }catch(e)
+  {
+    console.log(e.message)
   }
 }

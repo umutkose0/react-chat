@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 const Message = ({message}) => {
   const {currentUser}=useContext(AuthContext);
-  console.log(currentUser.uid,message)
+
   return currentUser.uid!==message.uid?(
     <div className="flex">
       <div className='flex justify-center ml-5 my-5 max-w-md  rounded-lg bg-white'>
@@ -11,7 +11,7 @@ const Message = ({message}) => {
           {message.text}
         </span>
         <span className="flex flex-col justify-end pb-1 pr-2 text-xs opacity-60">
-            19:20
+            {new Date(message.date).getHours()+":"+new Date(message.date).getMinutes()}
         </span>
       </div>
     </div>
@@ -22,11 +22,10 @@ const Message = ({message}) => {
     {message.text}
     </span>
     <span className="flex flex-col justify-end pb-1 pr-2 text-xs opacity-60">
-        01:06
+      {new Date(message.date).getHours()+":"+new Date(message.date).getMinutes()}
     </span>
     </div>
   </div>
 )
 }
-
 export default Message
