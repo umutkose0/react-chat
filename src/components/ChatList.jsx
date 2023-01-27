@@ -16,7 +16,6 @@ const ChatList = () => {
     btnShow.classList.add("show-navbar");
     const btnClose=document.querySelector(".navbar-button-2");
     btnClose.classList.remove("close-navbar");
-    console.log(sidebar)
   }
   useEffect(()=>{
   try

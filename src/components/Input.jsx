@@ -1,6 +1,9 @@
 import React from 'react'
 import FeatherIcon from 'feather-icons-react'
-const Input = () => {
+import { useState } from 'react'
+const Input = ({data}) => {
+  const [message,setMessage]=useState("");
+  
   return (
     <div className='w-[100%] absolute bottom-0 flex py-1.5 bg-[#cdcfc666] '>
       <div className="flex justify-center flex-[7]">

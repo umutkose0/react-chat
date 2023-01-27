@@ -1,11 +1,14 @@
 import React from 'react'
-
-const Message = ({reciever}) => {
-  return reciever?(
+import { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
+const Message = ({message}) => {
+  const {currentUser}=useContext(AuthContext);
+  console.log(currentUser.uid,message)
+  return currentUser.uid!==message.uid?(
     <div className="flex">
       <div className='flex justify-center ml-5 my-5 max-w-md  rounded-lg bg-white'>
         <span className="mr-2 p-2">
-          Same  message recieved...
+          {message.text}
         </span>
         <span className="flex flex-col justify-end pb-1 pr-2 text-xs opacity-60">
             19:20
@@ -16,7 +19,7 @@ const Message = ({reciever}) => {
   <div className="flex flex-row-reverse">
     <div className='flex justify-center ml-5 my-5 max-w-md  rounded-lg bg-[#b3ff89]'>
     <span className="mr-2 p-2">
-    Same message sent... 
+    {message.text}
     </span>
     <span className="flex flex-col justify-end pb-1 pr-2 text-xs opacity-60">
         01:06

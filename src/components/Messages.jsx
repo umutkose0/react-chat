@@ -1,32 +1,21 @@
-import React from 'react'
+import { doc, onSnapshot } from 'firebase/firestore';
+import {useState,useEffect} from 'react'
+import { db } from '../firebase';
 import Message from "./Message"
-const Messages = () => {
+const Messages = ({data}) => {
+  const [messages,setMessages]=useState([]);
+  useEffect(()=>{
+    const unsub=onSnapshot(doc(db,"chats",data.chatId),(doc)=>{
+      doc.exists() && setMessages(doc.data().messages)
+      //console.log(doc.data().messages)
+    })
+    return ()=>{
+      unsub();
+    }
+  },[data.chatId])
   return (
     <div className=" py-3 pl-5 pr-10 h-[calc(85vh-120px)] max-md:h-[calc(100vh-120px)] messages overflow-y-scroll overflow-x-hidden">
-        <Message reciever={true}/>
-        <Message reciever={false}/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message/>
-        <Message reciever={true}/>
+        {Object.entries(messages).map((message)=><Message key={message[0]} message={message[1]}/>)}
     </div>
   )
 }

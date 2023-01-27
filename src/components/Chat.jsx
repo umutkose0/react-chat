@@ -5,7 +5,6 @@ import {ChatContext} from "../context/ChatContext"
 
 const Chat = () => {
 const {data}=useContext(ChatContext);
-console.log(data);
   return data.chatId!==null?(
     <div className="chat relative bg-red-100 flex-[5] text-black ">
        <div className="flex items-center bg-[#cdcfc666] p-1">
@@ -20,8 +19,8 @@ console.log(data);
           </button>
        </div>
       </div>
-      <Messages/>
-      <Input/>
+      <Messages data={data}/>
+      <Input data={data}/>
     </div>
   )
   :<div className="chat relative flex bg-red-200 flex-[5] text-black justify-center items-center">
