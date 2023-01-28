@@ -20,12 +20,7 @@ const Input = ({data}) => {
     await sendMessage(data.chatId,message)
       setText("")
       document.querySelector("#message").focus()
-      const messages=document.querySelector(".messages")
-      messages.scroll({
-        top: messages.scrollHeight,
-        left: 0,
-        behavior: 'smooth'
-      });
+      
     }
   }
   return (
