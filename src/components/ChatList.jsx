@@ -21,7 +21,8 @@ const ChatList = () => {
   try
   {
     const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
-     setChats(doc.data());
+     setChats(Object.entries(doc.data()));
+     
     });
     return ()=>{
       unsub();
@@ -35,12 +36,12 @@ const ChatList = () => {
   return (
     chats?
     <ul className="chat-list h-[calc(85vh-140px)] overflow-y-scroll mt-3">
-      {Object.entries(chats).map((item)=><ChatItem handleSelect={handleSelect} key={item[0]} chatItem={item[1]} />
+      {chats.sort((a,b)=>b[1].lastMessage?.date?.seconds - a[1].lastMessage?.date?.seconds)
+      .map((item)=><ChatItem handleSelect={handleSelect} key={item[0]} chatItem={item[1]} />
       )}
     </ul>
     :<div className="flex justify-center text-center items-center h-[40vh] p-3">
     <span className="opacity-60 px-3">Start a new chat with email</span>   
-    
     </div>
   )
 }

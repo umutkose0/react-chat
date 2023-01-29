@@ -148,11 +148,18 @@ export const sendMessage=async(chatId,message)=>{
 export const setLastMessage=async(chatId,message)=>{
   try{
       await updateDoc(doc(db,"userChats",message.uid),{
-        [chatId+".lastMessage"]:{"text":message.text}
+        [chatId+".lastMessage"]:{
+          "text":message.text,
+          "date":serverTimestamp(),
+        }
       })
-      await updateDoc(doc(db,"userChats",chatId.replace(message.uid,""),{
-        [chatId+".lastMessage"]:{"text":message.text}
-      }))   
+      const recieverUid=chatId.replace(message.uid,"");
+      await updateDoc(doc(db,"userChats",recieverUid),{
+        [chatId+".lastMessage"]:{
+          "text":message.text,
+          "date":serverTimestamp(),
+        }
+      })
      
   }
   catch(e)

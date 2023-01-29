@@ -17,9 +17,9 @@ const Input = ({data}) => {
         text,
         date:Date.now()
       };
-    await sendMessage(data.chatId,message)
       setText("")
-      document.querySelector("#message").focus()
+    await sendMessage(data.chatId,message)
+    document.querySelector("#message").focus()
       
     }
   }
