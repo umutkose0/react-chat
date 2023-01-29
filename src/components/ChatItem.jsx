@@ -11,7 +11,7 @@ function ChatItem({handleSelect,chatItem}) {
 
         <div className="flex flex-col">
         <span className="font-semibold">{chatItem.userInfo.displayName}</span>
-        <span className="font-semibold opacity-50">message</span>
+        <span className="font-semibold opacity-50">{chatItem.lastMessage?.text}</span>
         </div> 
         <span className='flex flex-1 pr-4 opacity-50 text-sm justify-end items-center'>
         

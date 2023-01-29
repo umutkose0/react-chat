@@ -138,8 +138,25 @@ export const sendMessage=async(chatId,message)=>{
       "messages":arrayUnion(message)
     }
     )
+    await setLastMessage(chatId,message)
+
   }catch(e)
   {
     console.log(e.message)
+  }
+}
+export const setLastMessage=async(chatId,message)=>{
+  try{
+      await updateDoc(doc(db,"userChats",message.uid),{
+        [chatId+".lastMessage"]:{"text":message.text}
+      })
+      await updateDoc(doc(db,"userChats",chatId.replace(message.uid,""),{
+        [chatId+".lastMessage"]:{"text":message.text}
+      }))   
+     
+  }
+  catch(e)
+  {
+    console.log(e.message);
   }
 }
