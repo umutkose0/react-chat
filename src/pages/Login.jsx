@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import FeatherIcon from 'feather-icons-react';
 import {signIn} from "./../firebase";
 import {useNavigate,Link} from 'react-router-dom';
+import {Toaster} from "react-hot-toast";
 function Login() {
   const navigate=useNavigate();
   const [loading,setLoading]=useState(false);
@@ -24,6 +25,7 @@ function Login() {
   return (
     <>
       <div className="mt-3 rounded-md bg-white flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <Toaster/>
         <div className="w-full max-w-md space-y-8">
           <div>
             <img

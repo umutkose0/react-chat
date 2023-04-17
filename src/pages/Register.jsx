@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import {createUser} from "./../firebase"
 import FeatherIcon from 'feather-icons-react';
 import { useNavigate,Link } from 'react-router-dom';
+import {Toaster} from "react-hot-toast";
 
 function Register() {
   const navigate=useNavigate();
@@ -17,18 +18,17 @@ function Register() {
     const r=await createUser(displayName,email,password,photo);
     if(r)
     {
-      console.log("user created")
       navigate("/");
     }
     else
     {
-      console.log("en error occured")
       setLoading(false);
     }
       
   }
   return (
     <>
+    <Toaster/>
       <div className="mt-10 rounded-md bg-white flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>

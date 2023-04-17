@@ -3,7 +3,7 @@ import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,updat
 import { getStorage, ref,uploadBytesResumable,getDownloadURL  } from "firebase/storage";
 import { getFirestore,doc, setDoc , collection, query, where,getDocs, arrayUnion} from "firebase/firestore"; 
 import { getDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
-
+import toast from 'react-hot-toast';
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_apiKey,
   authDomain: process.env.REACT_APP_authDomain,
@@ -34,11 +34,27 @@ export const createUser=async(displayName,email,password,photo)=>{
     console.log(dbData);
     await setDoc(doc(db,"users",r.user.uid),dbData)
     await setDoc(doc(db,"userChats",r.user.uid),{})
+    toast("User created "+displayName,
+      {
+        duration:3000,
+        position:"top-right",
+        style:{},
+        className:'',
+        icon:'✔',
+      })
+    
     return true;
  }
  catch(e)
  {
-    console.log(e.message);
+    toast(e.message,
+      {
+        duration:5000,
+        position:"top-right",
+        style:{},
+        className:'',
+        icon:'❌',
+      })
     return false;
  }
 }
@@ -57,15 +73,32 @@ export const signIn=async(email,password)=>{
     try{
       const credential=await signInWithEmailAndPassword(auth, email, password)
       const user= credential.user;
-      console.log("logged in",user);
+      //console.log("logged in",user);
+      toast("Logged in "+user.displayName,
+      {
+        duration:3000,
+        position:"top-right",
+        style:{},
+        className:'',
+        icon:'✔',
+      })
       return true;
     }
     catch(e)
     {
-      console.log(e.message);
+      toast(e.message,
+      {
+        duration:5000,
+        position:"top-right",
+        style:{},
+        className:'',
+        icon:'❌',
+      })
+      toast.error("hata");
+      toast.success("başarı")
+      //console.log(e);
       return false;
     }
-
 
 }
 export const logOut=async()=>{
