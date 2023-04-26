@@ -94,9 +94,6 @@ export const signIn=async(email,password)=>{
         className:'',
         icon:'❌',
       })
-      toast.error("hata");
-      toast.success("başarı")
-      //console.log(e);
       return false;
     }
 
