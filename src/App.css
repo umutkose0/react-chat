@@ -31,7 +31,6 @@ body{
 @media(min-width:769px){
     .sidebar{
         visibility: visible!important;
-        
     }
 }
 @media(max-width:768px){
