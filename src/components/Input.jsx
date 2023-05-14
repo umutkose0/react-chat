@@ -3,7 +3,7 @@ import FeatherIcon from 'feather-icons-react'
 import { useState } from 'react'
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
-import {sendMessage} from "../firebase"
+import {sendMessage,sendGif} from "../firebase"
 import {SearchContextManager} from '@giphy/react-components'
 import {GiphyComponents} from "./GiphyComponents"
 
@@ -28,7 +28,6 @@ const Input = ({data}) => {
       setText("")
     await sendMessage(data.chatId,message)
     document.querySelector("#message").focus()
-      
     }
   }
   const giphyToggle=async(e)=>{
@@ -38,8 +37,18 @@ const Input = ({data}) => {
   const calcWidth=()=>{
     setWidth(gifArea.current.clientWidth);
   }
-  const handleGifClick=(gif)=>{
+  const handleGifClick=async(gif)=>{
     console.log(gif);
+    
+      const message={
+        uid:currentUser.uid,
+        type:"gif",
+        gif:gif.id,
+        date:Date.now()
+      };
+      console.log(message);
+    await sendGif(data.chatId,message)
+    giphyToggle()
   }
   return (
     <>

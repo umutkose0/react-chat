@@ -197,3 +197,17 @@ export const setLastMessage=async(chatId,message)=>{
     console.log(e.message);
   }
 }
+export const sendGif=async(chatId,message)=>{
+  try
+  {
+    await updateDoc(doc(db,"chats",chatId),
+    {
+      "messages":arrayUnion(message)
+    }
+    )
+
+  }catch(e)
+  {
+    console.log(e.message)
+  }
+}
